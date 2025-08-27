@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Logo from "../../Assets/logo.png";
 import HeroImage from "../../Assets/hero_image.png";
-
+import HeroSlider from "../Heroslider/Heroslider";
+import Specialization from "../specialization/specialization"
 const navLinks = [
   "Find Doctors",
   "Hospitals",
@@ -242,7 +243,6 @@ const Navbar = () => {
             .hero-image-container {
               flex-shrink: 0;
               margin-top: 2rem;
-              overflow:hidden;
               
             }
 
@@ -415,6 +415,8 @@ const HeroSection = () => {
           <img src={HeroImage} alt="Doctors" />
         </div>
       </div>
+      <HeroSlider />
+      <Specialization />
     </>
   );
 };

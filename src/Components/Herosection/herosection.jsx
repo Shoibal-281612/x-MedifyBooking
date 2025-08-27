@@ -1,12 +1,14 @@
 import React from "react";
+// Using placeholder images to avoid local file imports which won't work in this environment.
+import HeroImage from "../../Assets/hero_image.png";
 
-const HeroSection = () => {
+const HeroSection = ({ onFindCentresClick }) => {
   return (
     <>
       <style>
         {`
           .hero-section {
-            background-color: #e0f2fe; /* Light blue background color */
+            background-color: #e0f2fe;
             padding: 2rem;
             display: flex;
             flex-direction: column;
@@ -14,8 +16,6 @@ const HeroSection = () => {
             text-align: center;
             border-radius: 12px;
             gap: 2rem;
-            margin: 1rem auto;
-            max-width: 1280px;
           }
 
           @media (min-width: 768px) {
@@ -26,20 +26,22 @@ const HeroSection = () => {
               justify-content: space-between;
             }
           }
-
-          .hero-content {
-            max-width: 500px;
-          }
-
           .hero-heading {
             font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.2;
             color: #1f2937;
           }
+          
+          .hero-Heading {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #1f2937;
+          }
 
           .hero-subheading {
-            font-size: 1.125rem;
+            font-size: 1.5rem;
             color: #4b5563;
             margin-top: 1rem;
             line-height: 1.5;
@@ -47,11 +49,12 @@ const HeroSection = () => {
 
           .hero-button {
             margin-top: 2rem;
-            padding: 0.75rem 2rem;
-            background-color: #2563eb;
+            padding: 1.25rem 3rem;
+            background-color: rgba(2,168,255,1);
             color: #ffffff;
             font-weight: 600;
-            border-radius: 9999px;
+            font-size:1rem;
+            border-radius: 7px;
             transition-property: all;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 200ms;
@@ -76,25 +79,22 @@ const HeroSection = () => {
           }
         `}
       </style>
-
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-heading">
-            Skip the travel! Find Online <br /> Medical Centers
-          </h1>
+      <div className="hero-section">
+        <section className="hero-content">
+          <h1 className="hero-heading">Skip the travel! Find Online</h1>
+          <h1 className="hero-Heading">Medical Centers</h1>
           <p className="hero-subheading">
-            Connect instantly with a 24x7 specialist or choose to video visit a particular doctor.
+            Connect instantly with a 24x7 specialist or choose to <br />
+            video visit a particular doctor.
           </p>
-          <button className="hero-button">
-            Find Centers
-          </button>
-        </div>
+          <button className="hero-button" onClick={onFindCentresClick}>Find Centres</button>
+        </section>
         <div className="hero-image-container">
-          <img src="https://placehold.co/400x350/e0f2fe/666666?text=Hero+Image" alt="Doctors" />
+          <img src={HeroImage} alt="Doctors" />
         </div>
-      </section>
+      </div>
     </>
   );
 };
+
 export default HeroSection;
