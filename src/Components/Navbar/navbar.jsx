@@ -23,7 +23,7 @@ const Navbar = () => {
           background-color:dodgerblue;
           color:#f9fafb;
           padding:10px 10px;
-          font-size:1.5rem;
+          font-size:1rem;
           }
           .app-container {
               min-height: 100vh;
@@ -57,9 +57,9 @@ const Navbar = () => {
             
             .nav-links-desktop {
               display: none;
-              gap: 2.5rem;
+              gap: 2rem;
               align-items: center;
-              font-size:1.5rem;
+              font-size:1rem;
             }
             
             @media (min-width: 1024px) {
@@ -69,7 +69,7 @@ const Navbar = () => {
             }
             
             .nav-link {
-              font-size: 1rem;
+              font-size: .7rem;
               font-weight: 500;
               color: #4b5563;
               transition-property: color;
@@ -199,14 +199,14 @@ const Navbar = () => {
               }
           }
             .hero-heading {
-              font-size: 3rem;
+              font-size: 2.5rem;
               font-weight: 700;
               line-height: 1.2;
               color: #1f2937;
               
             }
                .hero-Heading {
-              font-size: 4.25rem;
+              font-size: 3.5rem;
               font-weight: 700;
               line-height: 1.2;
               color: #1f2937;
@@ -214,7 +214,7 @@ const Navbar = () => {
             }
 
             .hero-subheading {
-              font-size: 1.85rem;
+              font-size: 1.5rem;
               color: #4b5563;
               margin-top: 1rem;
               line-height: 1.5;
@@ -222,11 +222,11 @@ const Navbar = () => {
 
             .hero-button {
               margin-top: 2rem;
-              padding: 1.5rem 4rem;
+              padding: 1.25rem 3rem;
               background-color: rgba(2,168,255,1);
               color: #ffffff;
               font-weight: 600;
-              font-size:1.5rem;
+              font-size:1rem;
               border-radius: 7px;
               transition-property: all;
               transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -242,6 +242,7 @@ const Navbar = () => {
             .hero-image-container {
               flex-shrink: 0;
               margin-top: 2rem;
+              
             }
 
             @media (min-width: 768px) {
