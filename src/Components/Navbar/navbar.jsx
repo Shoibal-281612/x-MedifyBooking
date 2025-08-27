@@ -242,8 +242,7 @@ const Navbar = () => {
             .hero-image-container {
               flex-shrink: 0;
               margin-top: 2rem;
-              width-max:1200px;;
-              height:auto;
+              overflow:hidden;
               
             }
 
