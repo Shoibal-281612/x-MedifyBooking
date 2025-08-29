@@ -9,8 +9,6 @@ import {
   X,
   Search
 } from 'lucide-react';
-import Specialists from "../specialists/specialists";
-import PatientCaring from "../patientCaring/patientCaring";
 
 const specializations = [
   { name: 'Primary Care', icon: Stethoscope },
@@ -153,8 +151,7 @@ const FindBySpecialization = () => {
           </div>
         </div>
       </div>
-      <Specialists />
-      <PatientCaring />
+      
     </>
     
   );

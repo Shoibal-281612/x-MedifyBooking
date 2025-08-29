@@ -16,10 +16,9 @@ const patientCaring = () => {
           }
 
           .main-card {
-            max-width: 80rem; /* Corresponds to max-w-7xl */
+            max-width: 90rem; /* Corresponds to max-w-7xl */
+            height:auto;
             width: 100%;
-            border: 4px solid #bfdbfe; /* Corresponds to border-blue-200 */
-            border-radius: 1.5rem; /* Corresponds to rounded-3xl */
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Corresponds to shadow-2xl */
           }
