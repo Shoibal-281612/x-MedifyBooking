@@ -17,7 +17,7 @@ const SearchHospital = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMedicalCenters = async () => {
+    const fetchHospitals = async () => {
       if (!state || !city) return;
       setLoadingCenters(true);
       setError(null);
@@ -35,7 +35,7 @@ const SearchHospital = () => {
       }
     };
 
-    fetchMedicalCenters();
+    fetchHospitals();
   }, [state, city]);
 
   return (
