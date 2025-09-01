@@ -56,18 +56,11 @@ const SearchHospital = () => {
           />
         </div>
 
-      <h2 style={{ marginTop: "1rem" }}>
-        {state && city
-          ? `Showing hospitals in ${city}, ${state}`
-          : "Please select a state and city"}
-      </h2>
-
-      {loadingCenters && <p>Loading medical centers...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-     import HospitalCard from "../HospitalCard/HospitalCard"; // import new card
-
-...
+     <h1 style={{ marginTop: "1rem" }}>
+  {state && city
+    ? `${medicalCenters.length} medical centers available in ${city.toLowerCase()}`
+    : "Please select a state and city"}
+</h1>
 
 <div style={{ marginTop: "1rem" }}>
   {medicalCenters.map((center, idx) => (

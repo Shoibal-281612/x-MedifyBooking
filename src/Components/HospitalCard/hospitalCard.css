@@ -81,3 +81,62 @@
 .visit-btn:hover {
   background: #0088cc;
 }
+
+/*booking-slot css*/
+.booking-slots {
+  margin-top: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f9f9f9;
+}
+
+.days-row {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.day-column {
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+.day-column h4 {
+  color: #0073e6;
+  margin-bottom: 4px;
+}
+
+.slot-availability {
+  color: green;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.slot-group {
+  margin-bottom: 10px;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.slot-btn {
+  border: 1px solid #00aaff;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #0073e6;
+}
+
+.slot-btn:hover {
+  background: #e6f7ff;
+}
