@@ -75,7 +75,7 @@ const Search = () => {
   useEffect(() => {
     if (selectedState) {
       fetchCities(selectedState);
-      setMedicalCenters([]); // reset when state changes
+      setMedicalCenters([]); 
     }
   }, [selectedState]);
 
@@ -134,7 +134,7 @@ const Search = () => {
             </select>
           </div>
 
-          <button onClick={handleSearch} className="search-button">
+          <button onClick={handleSearch} className="searchBtn">
             Search
           </button>
         </div>
