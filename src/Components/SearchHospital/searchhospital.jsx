@@ -6,7 +6,7 @@ import FAQsec from "../FAQ/faq";
 import DownloadSection from "../DownloadSection/download";
 import Footer from "../Footer/footer";
 import oralHealthBanner from "../../Assets/oralBanner.png";
-
+import HospitalCard from "../HospitalCard/hospitalcard";
 
 const SearchHospital = () => {
   const location = useLocation();
@@ -65,16 +65,15 @@ const SearchHospital = () => {
       {loadingCenters && <p>Loading medical centers...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div style={{ marginTop: "1rem" }}>
-        {medicalCenters.map((center, idx) => (
-          <div key={idx} style={{ border: "1px solid #ccc", padding: "1rem", marginBottom: "1rem" }}>
-            <strong>{center["Hospital Name"]}</strong> <br />
-            <span>{center.Address}, {center.City}, {center.State}</span> <br />
-            <span>Phone: {center["Contact Number"] || "N/A"}</span>
-          </div>
-          
-        ))}
-        </div>
+     import HospitalCard from "../HospitalCard/HospitalCard"; // import new card
+
+...
+
+<div style={{ marginTop: "1rem" }}>
+  {medicalCenters.map((center, idx) => (
+    <HospitalCard key={idx} center={center} />
+  ))}
+</div>
       </div>
     </div>
      <FAQsec />

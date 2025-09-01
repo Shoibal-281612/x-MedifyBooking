@@ -1,0 +1,83 @@
+.hospital-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.hospital-card__icon img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #e6f2ff;
+  padding: 10px;
+}
+
+.hospital-card__details {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.hospital-card__name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0073e6;
+  margin-bottom: 4px;
+}
+
+.hospital-card__address {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.hospital-card__speciality {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.hospital-card__fee {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.hospital-card__fee .free {
+  color: green;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.hospital-card__fee .striked {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 4px;
+}
+
+.hospital-card__right {
+  text-align: right;
+}
+
+.availability {
+  color: green;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.visit-btn {
+  background: #00aaff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.visit-btn:hover {
+  background: #0088cc;
+}
