@@ -13,7 +13,9 @@ const Search = () => {
   const [error, setError] = useState(null);
   const [alertMessage, setAlertMessage] = useState(''); 
   const [medicalCenters, setMedicalCenters] = useState([]);
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+const [isStateDropdownOpen, setIsStateDropdownOpen] = useState(false);
   // Fetch states
   const fetchStates = async () => {
     setLoadingStates(true);
@@ -82,7 +84,7 @@ const Search = () => {
   
    const handleSearch = () => {
     if (selectedState && selectedCity) {
-      // Instead of fetching here, navigate to new page
+     
       navigate("/hospitals", {
         state: { state: selectedState, city: selectedCity }
       });
@@ -102,45 +104,57 @@ const Search = () => {
         <div className="search-bar-section">
           <div id="state" className="input-container">
       <div className="custom-dropdown">
-        <div className="dropdown-selected">
+        <div className="dropdown-selected"
+        onClick={() => setIsStateDropdownOpen(!isStateDropdownOpen)} >
           {selectedState || (loadingStates ? "Loading States..." : "Select a State")}
         </div>
-        <ul className="dropdown-list">
-          {states.map((state, i) => (
-            <li
-              key={i}
-              onClick={() => {
-                setSelectedState(state);
-                setSelectedCity("");
-              }}
-            >
-              {state}
-            </li>
-          ))}
-        </ul>
+        {isStateDropdownOpen && ( // Add this conditional rendering
+  <ul className={`dropdown-list ${isStateDropdownOpen ? "show" : ""}`}>
+    {states.map((state, i) => (
+      <li
+        key={i}
+        onClick={() => {
+          setSelectedState(state);
+          setSelectedCity("");
+          setIsStateDropdownOpen(false); // Close the dropdown on selection
+        }}
+      >
+        {state}
+      </li>
+    ))}
+  </ul>
+)}
       </div>
     </div>
+
+
 
     {/* City Dropdown */}
     <div id="city" className="input-container">
       <div className="custom-dropdown">
-        <div className={`dropdown-selected ${!selectedState || loadingCities ? "disabled" : ""}`}>
+        <div className={`dropdown-selected ${!selectedState || loadingCities ? "disabled" : ""}`}
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)} >
           {selectedCity || (loadingCities ? "Loading Cities..." : "Select a City")}
         </div>
-        <ul className="dropdown-list">
-          {cities.map((city, i) => (
-            <li
-              key={i}
-              onClick={() => setSelectedCity(city)}
-            >
-              {city}
-            </li>
-          ))}
-        </ul>
+       {isDropdownOpen && ( // <-- This line was missing
+          <ul className={`dropdown-list ${isDropdownOpen ? "show" : ""}`}>
+            {cities.map((city, i) => (
+              <li
+                key={i}
+                onClick={() => setSelectedCity(city)}
+              >
+                {city}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
 
-          <button onClick={handleSearch} className="searchBtn">
+
+
+
+          <button onClick={handleSearch} className="Search-Button" id="searchBtn">
             Search
           </button>
         </div>
