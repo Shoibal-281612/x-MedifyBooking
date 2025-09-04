@@ -101,38 +101,44 @@ const Search = () => {
         {/* Search bar */}
         <div className="search-bar-section">
           <div id="state" className="input-container">
-            <select
-              className="search-input"
-              value={selectedState}
-              onChange={(e) => {
-                setSelectedState(e.target.value);
-                setSelectedCity('');
+      <div className="custom-dropdown">
+        <div className="dropdown-selected">
+          {selectedState || (loadingStates ? "Loading States..." : "Select a State")}
+        </div>
+        <ul className="dropdown-list">
+          {states.map((state, i) => (
+            <li
+              key={i}
+              onClick={() => {
+                setSelectedState(state);
+                setSelectedCity("");
               }}
             >
-              <option value="" disabled hidden>
-                {loadingStates ? 'Loading States...' : 'Select a State'}
-              </option>
-              {states.map((state, i) => (
-                <option key={i} value={state}>{state}</option>
-              ))}
-            </select>
-          </div>
+              {state}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
 
-          <div id="city" className="input-container">
-            <select
-              className="search-input"
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              disabled={!selectedState || loadingCities}
+    {/* City Dropdown */}
+    <div id="city" className="input-container">
+      <div className="custom-dropdown">
+        <div className={`dropdown-selected ${!selectedState || loadingCities ? "disabled" : ""}`}>
+          {selectedCity || (loadingCities ? "Loading Cities..." : "Select a City")}
+        </div>
+        <ul className="dropdown-list">
+          {cities.map((city, i) => (
+            <li
+              key={i}
+              onClick={() => setSelectedCity(city)}
             >
-              <option value="" disabled hidden>
-                {loadingCities ? 'Loading Cities...' : 'Select a City'}
-              </option>
-              {cities.map((city, i) => (
-                <option key={i} value={city}>{city}</option>
-              ))}
-            </select>
-          </div>
+              {city}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
 
           <button onClick={handleSearch} className="searchBtn">
             Search

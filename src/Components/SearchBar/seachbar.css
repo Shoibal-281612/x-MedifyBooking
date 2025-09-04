@@ -189,3 +189,45 @@
 .custom-alert-btn:hover {
   background: #2563eb;
 }
+.custom-dropdown {
+  position: relative;
+  width: 200px;
+}
+
+.dropdown-selected {
+  padding: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #fff;
+}
+
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  max-height: 150px;
+  overflow-y: auto;
+  display: none; /* hidden by default */
+}
+
+.custom-dropdown:hover .dropdown-list {
+  display: block; /* show on hover */
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background: #f0f0f0;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
