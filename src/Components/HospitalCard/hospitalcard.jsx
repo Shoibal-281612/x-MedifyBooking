@@ -7,9 +7,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import Modal from "../Confirmation_modal/modal";
 
 const HospitalCard = ({ center }) => {
   const [showSlots, setShowSlots] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   // Generate 7 days
   const generateSlots = () => {
@@ -43,6 +46,28 @@ const HospitalCard = ({ center }) => {
   };
 
   const dayChunks = chunkDays(slotData, 3);
+
+  // Handle booking confirmation
+  const confirmBooking = () => {
+    if (selectedSlot) {
+      const booking = {
+        hospital: center["Hospital Name"],
+        city: center.City,
+        state: center.State,
+        slot: selectedSlot,
+        bookedAt: new Date().toISOString(),
+      };
+
+      // Save to localStorage
+      const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+      existingBookings.push(booking);
+      localStorage.setItem("bookings", JSON.stringify(existingBookings));
+
+      alert("✅ Booking confirmed!");
+      setShowModal(false);
+      setSelectedSlot(null);
+    }
+  };
 
   return (
     <div className="hospital-card" data-testid="hospital-card">
@@ -81,9 +106,9 @@ const HospitalCard = ({ center }) => {
           <Swiper modules={[Navigation]} spaceBetween={16} navigation>
             {dayChunks.map((chunk, idx) => (
               <SwiperSlide key={idx}>
-                <div className="days-column">
+                <div className="days-row">
                   {chunk.map((day, i) => (
-                    <div key={i} className="day-row">
+                    <div key={i} className="day-column">
                       <h4>{day.dayLabel}</h4>
                       <p className="slot-availability">
                         {day.slots.morning.length +
@@ -92,38 +117,26 @@ const HospitalCard = ({ center }) => {
                         Slots Available
                       </p>
 
-                      <div className="slot-group">
-                        <strong>Morning</strong>
-                        <div className="slots">
-                          {day.slots.morning.map((time, idx) => (
-                            <button key={idx} className="slot-btn">
-                              {time}
-                            </button>
-                          ))}
+                      {["morning", "afternoon", "evening"].map((session) => (
+                        <div className="slot-group" key={session}>
+                          <strong>{session.charAt(0).toUpperCase() + session.slice(1)}</strong>
+                          <div className="slots">
+                            {day.slots[session].map((time, idx) => (
+                              <button
+                                key={idx}
+                                className="slot-btn"
+                                onClick={() => {
+                                   console.log("Slot clicked:", day.dayLabel, time);  
+                                  setSelectedSlot({ day: day.dayLabel, time });
+                                  setShowModal(true);
+                                }}
+                              >
+                                {time}
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="slot-group">
-                        <strong>Afternoon</strong>
-                        <div className="slots">
-                          {day.slots.afternoon.map((time, idx) => (
-                            <button key={idx} className="slot-btn">
-                              {time}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="slot-group">
-                        <strong>Evening</strong>
-                        <div className="slots">
-                          {day.slots.evening.map((time, idx) => (
-                            <button key={idx} className="slot-btn">
-                              {time}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   ))}
                 </div>
@@ -132,6 +145,17 @@ const HospitalCard = ({ center }) => {
           </Swiper>
         </div>
       )}
+
+      {/* Confirmation Modal */}
+        {showModal && selectedSlot &&
+  <Modal
+  show={showModal}
+  onClose={() => setShowModal(false)}
+  onConfirm={confirmBooking}
+  hospitalName={center["Hospital Name"]}
+  slot={selectedSlot}
+/> 
+}
     </div>
   );
 };

@@ -1,14 +1,14 @@
 .hospital-card {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #d9d9d9;
-  border-radius: 12px;
+  flex-wrap: wrap;   /* allows booking-slots to wrap below */
+  align-items: flex-start;
+  border: 1px solid #ddd;
   padding: 16px;
+  border-radius: 8px;
   margin-bottom: 16px;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
 
 .hospital-card__icon img {
   width: 70px;
@@ -89,7 +89,10 @@
   border-radius: 8px;
   padding: 16px;
   background: #f9f9f9;
+  width: 100%;           /* take full width */
+  flex-basis: 100%;      /* break flex row flow */
 }
+
 
 .days-row {
   display: flex;
@@ -139,4 +142,18 @@
 
 .slot-btn:hover {
   background: #e6f7ff;
+}
+.days-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.day-column {
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  min-width: 200px;   /* Ensures proper width */
 }

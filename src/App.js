@@ -5,7 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "../src/HomePage/home";
 //import HeroSection from "./Components/Hero/herosection"; // Assuming this is also a separate component
 import Navbar from "./Components/Navbar/navbar"; // Import Navbar here to use on all pages if needed
-import SearchHospitals from "./Components/SearchHospital/searchhospital"
+import SearchHospitals from "./Components/SearchHospital/searchhospital";
+import MyBookings from "./MyBookings/bookings";
 // Placeholder components for other pages
 const FindDoctors = () => <div>Find Doctors Page</div>;
 //const Hospitals = () => <div>Hospitals Page</div>;
@@ -13,7 +14,7 @@ const Medicines = () => <div>Medicines Page</div>;
 const Surgeries = () => <div>Surgeries Page</div>;
 const SoftwareForProvider = () => <div>Software for Provider Page</div>;
 const Facilities = () => <div>Facilities Page</div>;
-const MyBookings = () => <div>My Bookings Page</div>;
+//const MyBookings = () => <div>My Bookings Page</div>;
 
 function App() {
   return (

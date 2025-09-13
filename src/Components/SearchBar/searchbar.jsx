@@ -152,9 +152,7 @@ const [isStateDropdownOpen, setIsStateDropdownOpen] = useState(false);
     </div>
 
 
-
-
-          <button onClick={handleSearch} className="Search-Button" id="searchBtn">
+          <button type= "submit" onClick={handleSearch} className="Search-Button" id="searchBtn">
             Search
           </button>
         </div>
