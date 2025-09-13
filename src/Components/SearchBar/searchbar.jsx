@@ -58,7 +58,7 @@ const [isStateDropdownOpen, setIsStateDropdownOpen] = useState(false);
     setLoadingCenters(true);
     setError(null);
     try {
-      const response = await fetch(`https://meddata-backend.onrender.com/data?state=${state}&city=${city}`);
+      const response = await fetch(`https://meddata-backend.onrender.com/data?state=${state}&city=${city.toUpperCase()}`);
       if (!response.ok) throw new Error('Failed to fetch medical centers');
       const data = await response.json();
       setMedicalCenters(data);
@@ -102,57 +102,61 @@ const [isStateDropdownOpen, setIsStateDropdownOpen] = useState(false);
       <div className="app-container">
         {/* Search bar */}
         <div className="search-bar-section">
-          <div id="state" className="input-container">
-      <div className="custom-dropdown">
-        <div className="dropdown-selected"
-        onClick={() => setIsStateDropdownOpen(!isStateDropdownOpen)} >
-          {selectedState || (loadingStates ? "Loading States..." : "Select a State")}
-        </div>
-        {isStateDropdownOpen && ( // Add this conditional rendering
-  <ul className={`dropdown-list ${isStateDropdownOpen ? "show" : ""}`}>
-    {states.map((state, i) => (
-      <li
-        key={i}
-        onClick={() => {
-          setSelectedState(state);
-          setSelectedCity("");
-          setIsStateDropdownOpen(false); // Close the dropdown on selection
-        }}
-      >
-        {state}
-      </li>
-    ))}
-  </ul>
-)}
-      </div>
-    </div>
 
+          
+         <div id="state" className="input-container"
+     onClick={() => setIsStateDropdownOpen(!isStateDropdownOpen)}>
+  <div className="custom-dropdown">
+    <div className="dropdown-selected">
+      {selectedState || (loadingStates ? "Loading States..." : "Select a State")}
+    </div>
+    {isStateDropdownOpen && (
+      <ul className={`dropdown-list show`}>
+        {states.map((state, i) => (
+          <li
+            key={i}
+            onClick={() => {
+              setSelectedState(state);
+              setSelectedCity("");
+              setIsStateDropdownOpen(false);
+            }}
+          >
+            {state}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
 
 
     {/* City Dropdown */}
-    <div id="city" className="input-container">
-      <div className="custom-dropdown">
-        <div className={`dropdown-selected ${!selectedState || loadingCities ? "disabled" : ""}`}
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)} >
-          {selectedCity || (loadingCities ? "Loading Cities..." : "Select a City")}
-        </div>
-       {isDropdownOpen && ( // <-- This line was missing
-          <ul className={`dropdown-list ${isDropdownOpen ? "show" : ""}`}>
-            {cities.map((city, i) => (
-              <li
-                key={i}
-                onClick={() => setSelectedCity(city)}
-              >
-                {city}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+   <div id="city" className="input-container"
+     onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+  <div className="custom-dropdown">
+    <div className={`dropdown-selected ${!selectedState || loadingCities ? "disabled" : ""}`}>
+      {selectedCity || (loadingCities ? "Loading Cities..." : "Select a City")}
     </div>
+    {isDropdownOpen && (
+      <ul className={`dropdown-list show`}>
+        {cities.map((city, i) => (
+          <li
+            key={i}
+            onClick={() => {
+              setSelectedCity(city.toUpperCase());
+              setIsDropdownOpen(false);
+            }}
+          >
+            {city.toUpperCase()}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
 
 
-          <button type= "submit" onClick={handleSearch} className="Search-Button" id="searchBtn">
+  <button type= "submit" onClick={handleSearch} className="Search-Button" id="searchBtn">
             Search
           </button>
         </div>

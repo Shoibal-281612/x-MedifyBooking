@@ -14,7 +14,7 @@ const HospitalCard = ({ center }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Generate 7 days
+  // Generate 7 days with slots
   const generateSlots = () => {
     const today = new Date();
     const days = [];
@@ -24,7 +24,12 @@ const HospitalCard = ({ center }) => {
 
       days.push({
         dayLabel:
-          i === 0 ? "Today" : i === 1 ? "Tomorrow" : date.toDateString().slice(0, 10),
+          i === 0
+            ? "Today"
+            : i === 1
+            ? "Tomorrow"
+            : date.toDateString().slice(0, 10),
+        dateObj: date, // ✅ keep actual date
         slots: {
           morning: ["11:30 AM"],
           afternoon: ["12:00 PM", "12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
@@ -37,7 +42,7 @@ const HospitalCard = ({ center }) => {
 
   const slotData = generateSlots();
 
-  // ✅ Group into chunks of 3 days
+  // ✅ Group into chunks of 3 days for Swiper
   const chunkDays = (arr, size) => {
     return arr.reduce((chunks, item, i) => {
       if (i % size === 0) chunks.push(arr.slice(i, i + size));
@@ -54,7 +59,11 @@ const HospitalCard = ({ center }) => {
         hospital: center["Hospital Name"],
         city: center.City,
         state: center.State,
-        slot: selectedSlot,
+        specialties: center["Specialties"] || "Not available",
+        slot: {
+          date: selectedSlot.date, // real yyyy-mm-dd
+          time: selectedSlot.time,
+        },
         bookedAt: new Date().toISOString(),
       };
 
@@ -63,7 +72,7 @@ const HospitalCard = ({ center }) => {
       existingBookings.push(booking);
       localStorage.setItem("bookings", JSON.stringify(existingBookings));
 
-      alert("✅ Booking confirmed!");
+      alert(`✅ Booking confirmed for ${booking.slot.date} at ${booking.slot.time}`);
       setShowModal(false);
       setSelectedSlot(null);
     }
@@ -119,15 +128,24 @@ const HospitalCard = ({ center }) => {
 
                       {["morning", "afternoon", "evening"].map((session) => (
                         <div className="slot-group" key={session}>
-                          <strong>{session.charAt(0).toUpperCase() + session.slice(1)}</strong>
+                          <strong>
+                            {session.charAt(0).toUpperCase() + session.slice(1)}
+                          </strong>
                           <div className="slots">
                             {day.slots[session].map((time, idx) => (
                               <button
                                 key={idx}
                                 className="slot-btn"
                                 onClick={() => {
-                                   console.log("Slot clicked:", day.dayLabel, time);  
-                                  setSelectedSlot({ day: day.dayLabel, time });
+                                  const dateStr = day.dateObj
+                                    .toISOString()
+                                    .split("T")[0]; // yyyy-mm-dd
+
+                                  setSelectedSlot({
+                                    day: day.dayLabel,
+                                    date: dateStr,
+                                    time,
+                                  });
                                   setShowModal(true);
                                 }}
                               >
@@ -147,15 +165,15 @@ const HospitalCard = ({ center }) => {
       )}
 
       {/* Confirmation Modal */}
-        {showModal && selectedSlot &&
-  <Modal
-  show={showModal}
-  onClose={() => setShowModal(false)}
-  onConfirm={confirmBooking}
-  hospitalName={center["Hospital Name"]}
-  slot={selectedSlot}
-/> 
-}
+      {showModal && selectedSlot && (
+        <Modal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={confirmBooking}
+          hospitalName={center["Hospital Name"]}
+          slot={selectedSlot}
+        />
+      )}
     </div>
   );
 };
