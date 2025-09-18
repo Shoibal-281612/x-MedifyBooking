@@ -61,7 +61,7 @@ const HospitalCard = ({ center }) => {
     if (!selectedSlot) return; // stop if nothing chosen
 
     const booking = {
-      hospital: center["Hospital Name"],
+      hospital: center["Hospital Name"].toLowerCase(),
       city: center.City,
       state: center.State,
       specialties: center["Specialties"] || "Not available",
