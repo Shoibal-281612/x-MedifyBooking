@@ -7,6 +7,7 @@ import Homepage from "../src/HomePage/home";
 import Navbar from "./Components/Navbar/navbar"; // Import Navbar here to use on all pages if needed
 import SearchHospitals from "./Components/SearchHospital/searchhospital";
 import MyBookings from "./MyBookings/bookings";
+import { Navigate } from "react-router-dom";
 // Placeholder components for other pages
 const FindDoctors = () => <div>Find Doctors Page</div>;
 //const Hospitals = () => <div>Hospitals Page</div>;
@@ -33,6 +34,8 @@ function App() {
         <Route path="/surgeries" element={<Surgeries />} />
         <Route path="/software-for-provider" element={<SoftwareForProvider />} />
         <Route path="/facilities" element={<Facilities />} />
+        
+<Route path="/my-bookings" element={<Navigate to="/bookings" replace />} />
         <Route path="/my-bookings" element={<MyBookings />} />
       </Routes>
     </BrowserRouter>
