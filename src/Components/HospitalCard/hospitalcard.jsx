@@ -133,7 +133,7 @@ const HospitalCard = ({ center }) => {
                           </strong>
                            {session === "Morning" && (
       <p className="logo-description" style={{ display: "none" }}>
-        Morning
+        Morning, Afternoon,Evening
       </p>
     )}
                           <div className="slots">
