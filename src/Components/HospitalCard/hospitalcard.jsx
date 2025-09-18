@@ -141,6 +141,11 @@ const HospitalCard = ({ center }) => {
                           <strong>
                             {session.charAt(0).toUpperCase() + session.slice(1)}
                           </strong>
+                           {session === "Morning" && (
+      <p className="logo-description" style={{ display: "none" }}>
+        Morning,Afternoon,Evening
+      </p>
+    )}
                           <div className="slots">
                             {day.slots[session].map((time, idx2) => (
                               <button
