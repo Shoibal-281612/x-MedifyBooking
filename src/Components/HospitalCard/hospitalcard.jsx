@@ -74,7 +74,7 @@ const HospitalCard = ({ center }) => {
 
       alert(`✅ Booking confirmed for ${booking.slot.date} at ${booking.slot.time}`);
       setShowModal(false);
-      setSelectedSlot(null);
+      setSelectedSlot(true);
     }
   };
 
