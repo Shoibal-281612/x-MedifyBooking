@@ -31,9 +31,9 @@ const HospitalCard = ({ center }) => {
             : date.toDateString().slice(0, 10),
         dateObj: date, // ✅ keep actual date
         slots: {
-          morning: ["11:30 AM"],
-          afternoon: ["12:00 PM", "12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
-          evening: ["06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM"],
+          Morning: ["11:30 AM"],
+          Afternoon: ["12:00 PM", "12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
+          Evening: ["06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM"],
         },
       });
     }
@@ -120,17 +120,22 @@ const HospitalCard = ({ center }) => {
                     <div key={i} className="day-column">
                       <h4>{day.dayLabel}</h4>
                       <p className="slot-availability">
-                        {day.slots.morning.length +
-                          day.slots.afternoon.length +
-                          day.slots.evening.length}{" "}
+                        {day.slots.Morning.length +
+                          day.slots.Afternoon.length +
+                          day.slots.Evening.length}{" "}
                         Slots Available
                       </p>
 
-                      {["morning", "afternoon", "evening"].map((session) => (
+                      {["Morning", "Afternoon", "Evening"].map((session) => (
                         <div className="slot-group" key={session}>
                           <strong>
                             {session.charAt(0).toUpperCase() + session.slice(1)}
                           </strong>
+                           {session === "Morning" && (
+      <p className="logo-description" style={{ display: "none" }}>
+        Morning
+      </p>
+    )}
                           <div className="slots">
                             {day.slots[session].map((time, idx) => (
                               <button
