@@ -211,7 +211,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Link
-              to="/bookings"
+              to="/my-bookings"
               className="bookings-btn"
             >
               My Bookings
@@ -285,7 +285,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            to="/bookings"
+            to="/my-bookings"
             className="bookings-btn-mobile"
             onClick={() => setIsMenuOpen(false)}
           >
