@@ -29,10 +29,16 @@ const HospitalCard = ({ center }) => {
             : i === 1
             ? "Tomorrow"
             : date.toDateString().slice(0, 10),
-        dateObj: date, // ✅ keep actual date
+        dateObj: date,
         slots: {
           Morning: ["11:30 AM"],
-          Afternoon: ["12:00 PM", "12:30 PM", "01:30 PM", "02:00 PM", "02:30 PM"],
+          Afternoon: [
+            "12:00 PM",
+            "12:30 PM",
+            "01:30 PM",
+            "02:00 PM",
+            "02:30 PM",
+          ],
           Evening: ["06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM"],
         },
       });
@@ -42,40 +48,41 @@ const HospitalCard = ({ center }) => {
 
   const slotData = generateSlots();
 
-  // ✅ Group into chunks of 3 days for Swiper
-  const chunkDays = (arr, size) => {
-    return arr.reduce((chunks, item, i) => {
+  const chunkDays = (arr, size) =>
+    arr.reduce((chunks, item, i) => {
       if (i % size === 0) chunks.push(arr.slice(i, i + size));
       return chunks;
     }, []);
-  };
 
   const dayChunks = chunkDays(slotData, 3);
 
-  // Handle booking confirmation
+  // --- FIX: fully guard selectedSlot before accessing its fields
   const confirmBooking = () => {
-    if (selectedSlot) {
-      const booking = {
-        hospital: center["Hospital Name"],
-        city: center.City,
-        state: center.State,
-        specialties: center["Specialties"] || "Not available",
-        slot: {
-          date: selectedSlot.date, // real yyyy-mm-dd
-          time: selectedSlot.time,
-        },
-        bookedAt: new Date().toISOString(),
-      };
+    if (!selectedSlot) return; // stop if nothing chosen
 
-      // Save to localStorage
-      const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-      existingBookings.push(booking);
-      localStorage.setItem("bookings", JSON.stringify(existingBookings));
+    const booking = {
+      hospital: center["Hospital Name"],
+      city: center.City,
+      state: center.State,
+      specialties: center["Specialties"] || "Not available",
+      slot: {
+        date: selectedSlot?.date || "", // optional chaining
+        time: selectedSlot?.time || "",
+      },
+      bookedAt: new Date().toISOString(),
+    };
 
-      alert(`✅ Booking confirmed for ${booking.slot.date} at ${booking.slot.time}`);
-      setShowModal(false);
-      setSelectedSlot(true);
-    }
+    const existing =
+      JSON.parse(localStorage.getItem("bookings"))?.filter(
+        (b) => b?.slot?.date && b?.slot?.time
+      ) || [];
+
+    existing.push(booking);
+    localStorage.setItem("bookings", JSON.stringify(existing));
+
+    alert(`✅ Booking confirmed for ${booking.slot.date} at ${booking.slot.time}`);
+    setShowModal(false);
+    setSelectedSlot(null);
   };
 
   return (
@@ -104,7 +111,10 @@ const HospitalCard = ({ center }) => {
       {/* Right side */}
       <div className="hospital-card__right">
         <p className="availability">Available Today</p>
-        <button className="visit-btn" onClick={() => setShowSlots(!showSlots)}>
+        <button
+          className="visit-btn"
+          onClick={() => setShowSlots((prev) => !prev)}
+        >
           {showSlots ? "Hide Slots" : "Book FREE Center Visit"}
         </button>
       </div>
@@ -131,20 +141,15 @@ const HospitalCard = ({ center }) => {
                           <strong>
                             {session.charAt(0).toUpperCase() + session.slice(1)}
                           </strong>
-                           {session === "Morning" && (
-      <p className="logo-description" style={{ display: "none" }}>
-        Morning, Afternoon,Evening
-      </p>
-    )}
                           <div className="slots">
-                            {day.slots[session].map((time, idx) => (
+                            {day.slots[session].map((time, idx2) => (
                               <button
-                                key={idx}
+                                key={idx2}
                                 className="slot-btn"
                                 onClick={() => {
                                   const dateStr = day.dateObj
                                     .toISOString()
-                                    .split("T")[0]; // yyyy-mm-dd
+                                    .split("T")[0];
 
                                   setSelectedSlot({
                                     day: day.dayLabel,
@@ -169,7 +174,7 @@ const HospitalCard = ({ center }) => {
         </div>
       )}
 
-      {/* Confirmation Modal */}
+      {/* Confirmation Modal — render only when slot is valid */}
       {showModal && selectedSlot && (
         <Modal
           show={showModal}
